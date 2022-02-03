@@ -1,7 +1,5 @@
 
 
-console.log("cau smradi");
-
 // vytvorim promennou "playerWins" typu Int, do ktere vlozim 0
 // vytvorim promennou "computerWins" typu Int, do ktere vlozim 0
 // vytvorim promennou "thisRoundWins" typu String, do ktere vlozim ""
@@ -23,3 +21,23 @@ console.log("cau smradi");
 
 
 
+
+function computerPlay() {
+    let randomNumber = Math.floor((Math.random()*5)+1);
+    switch (randomNumber) {
+        case 1: 
+            return "rock";        
+        case 2:
+            return "paper";
+        case 3:
+            return "scissors";
+        case 4:
+            return "lizzard";
+        case 5:
+            return "spock";
+        default:
+            return "something went wrong in function computerPlay";
+    }
+}
+
+console.log(computerPlay());
