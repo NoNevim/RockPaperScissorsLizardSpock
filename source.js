@@ -1,10 +1,25 @@
-
-
+/* const audio = document.querySelector('audio');
+audio.play();
+ */
 // vytvorim promennou "playerWins" typu Int, do ktere vlozim 0
 let playerWins = 0;
 // vytvorim promennou "computerWins" typu Int, do ktere vlozim 0
 let computerWins = 0;
 // vytvorim promennou "thisRoundWins" typu String, do ktere vlozim ""
+const tlasitko = document.querySelectorAll('button');
+const selections = document.querySelector('.selections');
+const result = document.querySelector('.result');
+const score = document.querySelectorAll('.score');
+const body = document.querySelector('body');
+const content = document.createElement('div');
+const resetButton = document.createElement('button')
+resetButton.classList.add('button');
+resetButton.textContent = 'RESET GAME';
+
+//resetButton.classList.add()
+
+
+//const kontejner = document.querySelector('.container');
 
 // vytvorim funkci "computerPlay" (bez parametru), ktera nahodne generuje volbu pocitace a vraci jeden ze stringu (rock, paper, scissors, lizard, spock)
 function computerPlay() {
@@ -49,68 +64,80 @@ function playRound (playerSelection, computerPlay) {
     
 }
 
-// vytvorim funkci "game", ktera 5x zopakuje:
-                // zeptam se na to, co chci hrat (rock, paper, scissors, lizard, spock) - pres prompt
-                // osetrim vstup od ostatnich zadanych moznosti (nesmi se vlozit nic krome 5 zakladnich stringu)
-                // prevedu vstup na lowercase (tim odstranim mozne problemy s case sensitive)
-                // vstup od hrace ulozim do promenne "playerSelection"
-                // spustim funkci "playRound" - se vstupy "playerSelection" a "computerSelection" a vystup vypisu do konzole (alarmu) spolecne
-                    // s prubeznym skore hrac vs pocitac   
-                //  po dobehnuti 5 her zobrazim status, kdo vyhral celkove
-function game() {
-    let sayResult = "";
-    let playerSelection = "";
+function game(playerSelection) {
     
-    //Loop:
-    for (let i = 1; i <= 5; i++) {
-        playerSelection = prompt(`Round ${i}/5. Choose: Rock, Paper, Scissors, Lizard, Spock`);
-        if (playerSelection === null) return 666;
-            
-        /* if (typeof(playerSelection) !== "string") {
-            alert("You have chosen wrong value - you have to write one of theese: Rock, Paper, Scissors, Lizard, Spock");
-        return;
-        } */
-        playerSelection = playerSelection.toLowerCase();
-        if ((playerSelection !== "rock") && (playerSelection !== "paper") && (playerSelection !== "scissors") && (playerSelection !== "lizard") && (playerSelection !== "spock")) {
-            alert("You have chosen wrong value - you have to write one of theese: Rock, Paper, Scissors, Lizard, Spock");
-            i--;
-            continue;
-        }
-        sayResult = playRound(playerSelection, computerPlay());
-        alert(sayResult);
-    }
+    let sayResult = "";
+    let computer = computerPlay();
+    selections.textContent=`You chose ${playerSelection} and computer chose ${computer}`;
+    sayResult = playRound(playerSelection, computer);
+        
+    result.textContent = sayResult;
+    score[0].textContent = playerWins;
+    score[2].textContent = computerWins;
 
-    if (playerWins > computerWins) {
-        alert(`Yayy. You are overall winner! Final score is ${playerWins}:${computerWins}`);
-    } else if (computerWins > playerWins) {
-        alert(`What a shame. Computer had more luck. Final score is ${playerWins}:${computerWins}`);
-    } else {
-        alert(`Ok, nobody wins. Shake hands with each other. It is draw: ${playerWins}:${computerWins}`)
-    }    
+    
+       
+    if ( playerWins === 5 ) {
+        body.classList.add('win');
+        content.textContent = "You are winneeeeer yayayayayyayaaaaay!!!!!";
+        content.classList.add('wintext')
+        body.appendChild(content);
+        body.appendChild(resetButton);
+        
+        //setTimeout(reset(),5000);
+        
+        
+        
+    } else if ( computerWins === 5 ) {
+        body.classList.add('lose');
+
+        
+        content.textContent = "GTFO you loser";
+        content.classList.add('losetext')
+        body.appendChild(content);
+        body.appendChild(resetButton);
+        
+        //setTimeout(reset(),5000);
+    }       
+
+    
+
 }
 
 function playerWonRound(playerSelection, computerPlay) {
         playerWins += 1;
-        return `You win this round, ${playerSelection} defeats ${computerPlay}. Current score is ${playerWins}:${computerWins}`;
+        return `You win this round, ${playerSelection} defeats ${computerPlay}.`;
 }
 
 function computerWonRound(playerSelection, computerPlay) {
         computerWins += 1;
-    return `You lost this round, ${playerSelection} is defeated by ${computerPlay}. Current score is ${playerWins}:${computerWins}`;
+    return `You lost this round, ${playerSelection} is defeated by ${computerPlay}.`;
 }
 
 
-let keepGoing = true;
-while(keepGoing)
-    if (game() === 666 ) {
-        let playAgain =confirm("You have canceled the game, wanna play again?");
-        (playAgain) ? keepGoing = true : keepGoing = false;
-    } else {
-        let playAgain =confirm("Wanna play again?");
-        (playAgain) ? keepGoing = true : keepGoing = false;
-    }   
 
+ 
 
+tlasitko[0].addEventListener('click', () => game('rock'));
 
-//console.log(playRound(computerPlay(),computerPlay()));
+tlasitko[1].addEventListener('click', () => game('paper'));
+
+tlasitko[2].addEventListener('click', () => game('scissors'));
+
+tlasitko[3].addEventListener('click', () => game('lizard'));
+
+tlasitko[4].addEventListener('click', () => game('spock'));
+
+resetButton.addEventListener('click', reset);
+
+function reset() {
+    body.removeChild(content);
+    body.classList.remove('lose');
+    body.classList.remove('win');
+    body.removeChild(resetButton);
+    playerWins = 0;
+    computerWins = 0;
+    score[0].textContent = playerWins;
+    score[2].textContent = computerWins;
+}
 
