@@ -1,6 +1,4 @@
-/* const audio = document.querySelector('audio');
-audio.play();
- */
+
 // vytvorim promennou "playerWins" typu Int, do ktere vlozim 0
 let playerWins = 0;
 // vytvorim promennou "computerWins" typu Int, do ktere vlozim 0
@@ -84,6 +82,7 @@ function game(playerSelection) {
         body.appendChild(content);
         body.appendChild(resetButton);
         
+        tlasitko.removeEventListener
         //setTimeout(reset(),5000);
         
         
