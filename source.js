@@ -11,7 +11,7 @@ const score = document.querySelectorAll('.score');
 const body = document.querySelector('body');
 const content = document.createElement('div');
 const resetButton = document.createElement('button')
-resetButton.classList.add('button');
+resetButton.classList.add('button', 'reset');
 resetButton.textContent = 'RESET GAME';
 
 //resetButton.classList.add()
@@ -82,7 +82,7 @@ function game(playerSelection) {
         body.appendChild(content);
         body.appendChild(resetButton);
         
-        tlasitko.removeEventListener
+        //tlasitko.removeEventListener
         //setTimeout(reset(),5000);
         
         
