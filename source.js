@@ -5,7 +5,7 @@ let playerWins = 0;
 let computerWins = 0;
 // vytvorim promennou "thisRoundWins" typu String, do ktere vlozim ""
 let tlasitko = document.querySelectorAll('button');
-const selections = document.querySelector('.selections');
+const selections = document.querySelector(".selections");
 const result = document.querySelector('.result');
 const score = document.querySelectorAll('.score');
 const body = document.querySelector('body');
@@ -15,6 +15,23 @@ const buttonsContainer = document.querySelector('.buttons');
 const scoreText = document.querySelector('.left')
 resetButton.classList.add('button', 'reset');
 resetButton.textContent = 'RESET GAME';
+const margin = document.createElement('div');
+const rockButton = document.createElement('button');
+const paperButton = document.createElement('button');
+const scissorsButton = document.createElement('button');
+const lizardButton = document.createElement('button');
+const spockButton = document.createElement('button');
+rockButton.textContent = 'Rock';
+paperButton.textContent = 'Paper';
+scissorsButton.textContent = 'Scissors';
+lizardButton.textContent = 'Lizard';
+spockButton.textContent = 'Spock';
+margin.appendChild(rockButton);
+margin.appendChild(paperButton);
+margin.appendChild(scissorsButton);
+margin.appendChild(lizardButton);
+margin.appendChild(spockButton);
+margin.classList.add('buttons');
 
 //resetButton.classList.add()
 
@@ -86,9 +103,12 @@ function game(playerSelection) {
         
         // tlasitko[0].removeEventListener('click', () => game('rock'));
         //setTimeout(reset(),5000);
+        
         body.removeChild(buttonsContainer);
+        body.insertBefore(margin, selections);
         scoreText.textContent = 'Final score';
         
+
     } else if ( computerWins === 5 ) {
         body.classList.add('lose');
 
@@ -99,8 +119,9 @@ function game(playerSelection) {
         body.appendChild(resetButton);
 
         body.removeChild(buttonsContainer);
+        body.insertBefore(margin, selections);
         scoreText.textContent = 'Final score';
-        
+
     
         // tlasitko[0].removeEventListener('click', () => game('rock'));
         //setTimeout(reset(),5000);
@@ -147,6 +168,7 @@ function reset() {
     score[2].textContent = computerWins;
 
     body.insertBefore(buttonsContainer, selections);
+    body.removeChild(margin);
     scoreText.textContent = 'Current score';
 
     selections.textContent = 'Click on one of the buttons above';
