@@ -4,13 +4,15 @@ let playerWins = 0;
 // vytvorim promennou "computerWins" typu Int, do ktere vlozim 0
 let computerWins = 0;
 // vytvorim promennou "thisRoundWins" typu String, do ktere vlozim ""
-const tlasitko = document.querySelectorAll('button');
+let tlasitko = document.querySelectorAll('button');
 const selections = document.querySelector('.selections');
 const result = document.querySelector('.result');
 const score = document.querySelectorAll('.score');
 const body = document.querySelector('body');
 const content = document.createElement('div');
 const resetButton = document.createElement('button')
+const buttonsContainer = document.querySelector('.buttons');
+const scoreText = document.querySelector('.left')
 resetButton.classList.add('button', 'reset');
 resetButton.textContent = 'RESET GAME';
 
@@ -82,10 +84,10 @@ function game(playerSelection) {
         body.appendChild(content);
         body.appendChild(resetButton);
         
-        //tlasitko.removeEventListener
+        // tlasitko[0].removeEventListener('click', () => game('rock'));
         //setTimeout(reset(),5000);
-        
-        
+        body.removeChild(buttonsContainer);
+        scoreText.textContent = 'Final score';
         
     } else if ( computerWins === 5 ) {
         body.classList.add('lose');
@@ -95,7 +97,12 @@ function game(playerSelection) {
         content.classList.add('losetext')
         body.appendChild(content);
         body.appendChild(resetButton);
+
+        body.removeChild(buttonsContainer);
+        scoreText.textContent = 'Final score';
         
+    
+        // tlasitko[0].removeEventListener('click', () => game('rock'));
         //setTimeout(reset(),5000);
     }       
 
@@ -138,5 +145,11 @@ function reset() {
     computerWins = 0;
     score[0].textContent = playerWins;
     score[2].textContent = computerWins;
+
+    body.insertBefore(buttonsContainer, selections);
+    scoreText.textContent = 'Current score';
+
+    selections.textContent = 'Click on one of the buttons above';
+    result.textContent = 'LET THE BATTLE BEGIN!!!!!!';
 }
 
