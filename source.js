@@ -55,9 +55,7 @@ function playRound (playerSelection, computerPlay) {
         if (playerSelection === "paper" && (computerPlay === "rock" || computerPlay === "spock")) return playerWonRound(playerSelection, computerPlay);
         if (playerSelection === "paper" && (computerPlay === "scissors" || computerPlay === "lizard")) return computerWonRound(playerSelection, computerPlay);
 
-
         return `This round is a draw. The score is still ${playerWins}:${computerWins}`;
-    
 }
 
 function game(playerSelection) {
@@ -70,34 +68,26 @@ function game(playerSelection) {
     result.textContent = sayResult;
     score[0].textContent = playerWins;
     score[2].textContent = computerWins;
-
-    
        
     if ( playerWins === 5 ) {
         body.classList.add('win');
         content.textContent = "You are winneeeeer yayayayayyayaaaaay!!!!!";
         content.classList.add('wintext')
-        
-        
-        
+                
         body.appendChild(content);
         body.appendChild(resetButton);
         
-
         scoreText.textContent = 'Final score';
-        //tlasitko.forEach(removeEventListener('click', listenButton));
-        tlasitko[0].removeEventListener('click', listenButton);
-        tlasitko[1].removeEventListener('click', listenButton);
-        tlasitko[2].removeEventListener('click', listenButton);
-        tlasitko[3].removeEventListener('click', listenButton);
-        tlasitko[4].removeEventListener('click', listenButton);
 
+        tlasitko.forEach( (node) => node.removeEventListener('click', listenButton));
+
+        score[0].classList.add('finalscore')
+        score[2].classList.add('finalscore')
 
     } else if ( computerWins === 5 ) {
         body.classList.add('lose');
-
         
-        content.textContent = "GTFO you loser";
+        content.textContent = "Okey, so, Fernando (this computer) is faster than you";
         content.classList.add('losetext')
         
         body.appendChild(content);
@@ -105,17 +95,11 @@ function game(playerSelection) {
 
         scoreText.textContent = 'Final score';
 
- 
-        //tlasitko.forEach(removeEventListener('click', listenButton));
-        tlasitko[0].removeEventListener('click', listenButton);
-        tlasitko[1].removeEventListener('click', listenButton);
-        tlasitko[2].removeEventListener('click', listenButton);
-        tlasitko[3].removeEventListener('click', listenButton);
-        tlasitko[4].removeEventListener('click', listenButton);
+        tlasitko.forEach( (node) => node.removeEventListener('click', listenButton));
+
+        score[0].classList.add('finalscore')
+        score[2].classList.add('finalscore')
     }       
-
-    
-
 }
 
 function playerWonRound(playerSelection, computerPlay) {
@@ -127,18 +111,6 @@ function computerWonRound(playerSelection, computerPlay) {
         computerWins += 1;
     return `You lost this round, ${playerSelection} is defeated by ${computerPlay}.`;
 }
-
-
-
- 
-
-tlasitko[0].addEventListener('click', listenButton);
-tlasitko[1].addEventListener('click', listenButton);
-tlasitko[2].addEventListener('click', listenButton);
-tlasitko[3].addEventListener('click', listenButton);
-tlasitko[4].addEventListener('click', listenButton);
-
-resetButton.addEventListener('click', reset);
 
 function listenButton(e) {
     game(`${e.target.dataset.sel}`)
@@ -159,10 +131,16 @@ function reset() {
     selections.textContent = 'Click on one of the buttons above';
     result.textContent = 'LET THE BATTLE BEGIN!!!!!!';
 
-    tlasitko[0].addEventListener('click', listenButton);
-    tlasitko[1].addEventListener('click', listenButton);
-    tlasitko[2].addEventListener('click', listenButton);
-    tlasitko[3].addEventListener('click', listenButton);
-    tlasitko[4].addEventListener('click', listenButton);
+    tlasitko.forEach( (node) => node.addEventListener('click', listenButton));
+
+    score[0].classList.remove('finalscore');
+    score[2].classList.remove('finalscore');
 }
+
+ 
+tlasitko.forEach( (node) => node.addEventListener('click', listenButton));
+
+resetButton.addEventListener('click', reset);
+
+score.addEventListener('transitionend')
 
